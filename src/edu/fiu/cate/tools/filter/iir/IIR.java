@@ -66,14 +66,14 @@ public class IIR implements Filter{
 	}
 
 	@Override
-	public void reset() {
+	public synchronized void reset() {
 		for(int i = 0; i<l; i++){
 			this.delays[i]= 0.0;
 		}	
 	}
 
 	@Override	
-	public double filter(double x) {
+	public synchronized double filter(double x) {
 		double y = a[0]*(x*b[0]+delays[0]);
 		for(int i=0; i<l-1; i++){
 			delays[i] = x*b[i+1]+delays[i+1]-y*a[i+1];

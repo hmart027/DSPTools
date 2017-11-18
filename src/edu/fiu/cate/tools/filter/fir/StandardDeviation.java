@@ -12,7 +12,7 @@ public class StandardDeviation extends FIR{
 	}
 	
 	@Override
-	public double filter(double x){
+	public synchronized double filter(double x){
 		double mean = 0, sumOfSquares = 0;
 		pastVals.add(x);
 		//getMean

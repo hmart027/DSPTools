@@ -31,14 +31,14 @@ public class FIR implements Filter{
 	}
 	
 	@Override
-	public void reset(){
+	public synchronized void reset(){
 		for(int i = 0; i<order+1; i++){
 			this.filter(0);
 		}
 	}
 
 	@Override
-	public double filter(double x){
+	public synchronized double filter(double x){
 		double y = 0;
 		pastVals.add(x);
 		for(int i = 0; i<order+1; i++){
