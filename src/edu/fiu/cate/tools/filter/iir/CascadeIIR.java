@@ -3,7 +3,10 @@ package edu.fiu.cate.tools.filter.iir;
 import edu.fiu.cate.tools.filter.Filter;
 
 public class CascadeIIR implements Filter {
-	
+
+	protected boolean ready;
+	protected int cSample;
+	protected int maxLen=-1;
 	private IIR[] filters;
 	
 	protected CascadeIIR(){};
@@ -13,6 +16,8 @@ public class CascadeIIR implements Filter {
 		irr.filters = new IIR[sos.length];
 		for(int i = 0; i<irr.filters.length; i++){
 			irr.filters[i] = IIR.loadIIR(sos[i]);
+			if(irr.filters[i].l>irr.maxLen)
+				irr.maxLen = irr.filters[i].l; 
 		}
 		return irr;
 	}
@@ -22,6 +27,8 @@ public class CascadeIIR implements Filter {
 		for(int i = 0; i<filters.length; i++){
 			filters[i].reset();
 		}
+		cSample = 0;
+		ready = false;
 	}
 
 	@Override
@@ -30,6 +37,8 @@ public class CascadeIIR implements Filter {
 		for(int i = 0; i<filters.length; i++){
 			out = filters[i].filter(out);
 		}
+		if(cSample++ > maxLen+1)
+			ready = true;
 		return out;
 	}
 
@@ -53,6 +62,11 @@ public class CascadeIIR implements Filter {
 	public double getLastValue() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public synchronized boolean isReady() {
+		return ready;
 	}
 
 }

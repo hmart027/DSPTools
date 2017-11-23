@@ -26,7 +26,11 @@ public class StandardDeviation extends FIR{
 //		}
 		pastVals.remove(0);
 //		return Math.pow(std*w, 0.5);
-		lastY = Math.sqrt((sumOfSquares-Math.pow(mean, 2)*w)/order);
+		lastY = Math.sqrt((sumOfSquares-mean*mean*w)/order);
+		
+		if(cSample++ > order+1)
+			ready = true;
+		
 		return lastY;
 	}
 	

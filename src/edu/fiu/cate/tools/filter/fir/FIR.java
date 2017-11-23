@@ -7,6 +7,8 @@ import edu.fiu.cate.tools.filter.Filter;
 
 public class FIR implements Filter{
 
+	protected boolean ready;
+	protected int cSample;
 	protected int order;
 	protected double[] weights;
 	protected ArrayList<Double> pastVals;
@@ -35,8 +37,15 @@ public class FIR implements Filter{
 		for(int i = 0; i<order+1; i++){
 			this.filter(0);
 		}
+		cSample = 0;
+		ready = false;
 	}
-
+	
+	@Override
+	public synchronized boolean isReady(){
+		return ready;
+	}
+	
 	@Override
 	public synchronized double filter(double x){
 		double y = 0;
@@ -46,6 +55,8 @@ public class FIR implements Filter{
 		}
 		lastY = y;
 		pastVals.remove(0);
+		if(cSample++ > order+1)
+			ready = true;
 		return y;
 	}
 

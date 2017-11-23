@@ -4,6 +4,8 @@ public interface Filter {
 
 	public void reset();
 	
+	public boolean isReady();
+	
 	public double filter(double x);
 	
 	public double[] filter(double[] x);

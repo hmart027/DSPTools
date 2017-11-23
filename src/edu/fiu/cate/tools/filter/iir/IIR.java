@@ -3,7 +3,9 @@ package edu.fiu.cate.tools.filter.iir;
 import edu.fiu.cate.tools.filter.Filter;
 
 public class IIR implements Filter{
-	
+
+	protected boolean ready;
+	protected int cSample;
 	protected int l;
 	protected double[] a, b, delays;
 	
@@ -70,6 +72,8 @@ public class IIR implements Filter{
 		for(int i = 0; i<l; i++){
 			this.delays[i]= 0.0;
 		}	
+		cSample = 0;
+		ready = false;
 	}
 
 	@Override	
@@ -78,6 +82,8 @@ public class IIR implements Filter{
 		for(int i=0; i<l-1; i++){
 			delays[i] = x*b[i+1]+delays[i+1]-y*a[i+1];
 		}
+		if(cSample++ > l+1)
+			ready = true;
 		return y;
 	}
 
@@ -100,6 +106,11 @@ public class IIR implements Filter{
 	@Override
 	public double getLastValue() {
 		return 0;
+	}
+
+	@Override
+	public synchronized boolean isReady() {
+		return ready;
 	}
 
 }
