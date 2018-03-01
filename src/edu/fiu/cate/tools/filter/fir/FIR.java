@@ -1,12 +1,15 @@
 package edu.fiu.cate.tools.filter.fir;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import edu.fiu.cate.tools.filter.Filter;
 
-public class FIR implements Filter{
-
+public class FIR implements Filter, Serializable{
+	
+	private static final long serialVersionUID = -2969688764430007793L;
+	
 	protected boolean ready;
 	protected int cSample;
 	protected int order;

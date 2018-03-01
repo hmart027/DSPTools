@@ -1,9 +1,13 @@
 package edu.fiu.cate.tools.filter.iir;
 
+import java.io.Serializable;
+
 import edu.fiu.cate.tools.filter.Filter;
 
-public class IIR implements Filter{
+public class IIR implements Filter, Serializable{
 
+	private static final long serialVersionUID = -6948005476455468093L;
+	
 	protected boolean ready;
 	protected int cSample;
 	protected int l;
