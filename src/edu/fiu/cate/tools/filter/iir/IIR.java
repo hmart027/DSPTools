@@ -12,6 +12,7 @@ public class IIR implements Filter, Serializable{
 	protected int cSample;
 	protected int l;
 	protected double[] a, b, delays;
+	protected double lastVal;
 	
 	protected IIR(){};
 	
@@ -88,6 +89,7 @@ public class IIR implements Filter, Serializable{
 		}
 		if(cSample++ > l+1)
 			ready = true;
+		lastVal = y;
 		return y;
 	}
 
@@ -109,7 +111,7 @@ public class IIR implements Filter, Serializable{
 
 	@Override
 	public double getLastValue() {
-		return 0;
+		return lastVal;
 	}
 
 	@Override
