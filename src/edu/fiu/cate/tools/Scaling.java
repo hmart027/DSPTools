@@ -45,6 +45,21 @@ public class Scaling {
 		}
 		return out;
 	}
+	
+	/**
+	 * Changes the sampling frequency of the given signal using Lanczos resampling. 
+	 * @param sig to be re-sampled. first index is the electrode, second is the sample point
+	 * @param f0 is the original sampling frequency
+	 * @param f1 is the new sampling frequency
+	 * @return a new copy of the original signal re-sampled at the new frequency f1
+	 */	
+	public static double[][] scale(double[][] sig, double f0, double f1){
+		double[][] out = new double[sig.length][];
+		for(int i=0; i<sig.length; i++){
+			out[i]=scale(sig[i], (float)f0, (float)f1);
+		}
+		return out;
+	}
 
 	public static double getLanczos(double x, double w){
 		if(x==0)
