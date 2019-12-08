@@ -52,5 +52,25 @@ public class RollingFFT extends FFT{
 		return out;
 	}
 	
+	public static double[] getReal(Complex[] fft, double correction) {
+		if(fft == null)
+			return null;
+		double[] out = new double[fft.length/2];
+		for(int i=0; i<out.length; i++) {
+			out[i] = fft[i].real()*correction;
+		}
+		return out;
+	}
+	
+	public static double[] getMod(Complex[] fft, double correction) {
+		if(fft == null)
+			return null;
+		double[] out = new double[fft.length/2];
+		for(int i=0; i<out.length; i++) {
+			out[i] = fft[i].mod()*correction;
+		}
+		return out;
+	}
+	
 
 }
