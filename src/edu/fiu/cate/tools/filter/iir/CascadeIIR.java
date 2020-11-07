@@ -73,4 +73,9 @@ public class CascadeIIR implements Filter, Serializable {
 		return ready;
 	}
 
+	@Override
+	public int getLength() {
+		return maxLen;
+	}
+
 }

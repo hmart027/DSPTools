@@ -13,4 +13,6 @@ public interface Filter {
 	public double[] getCoefficients();
 		
 	public double getLastValue();
+	
+	public int getLength();
 }

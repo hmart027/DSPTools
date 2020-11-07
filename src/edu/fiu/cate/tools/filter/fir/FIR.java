@@ -85,4 +85,9 @@ public class FIR implements Filter, Serializable{
 	public double getLastValue(){
 		return lastY;
 	}
+
+	@Override
+	public int getLength() {
+		return getOrder();
+	}
 }
